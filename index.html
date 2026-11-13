@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Il piano cartesiano</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f7f8fb;--card:#fff;--tx:#1d2433;--mu:#5b6578;--ac:#2563eb;--r:#dc2626;--g:#16a34a;--gr:#d9deea;--bd:#e2e6ef}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12151c;--card:#1b202b;--tx:#e8ecf5;--mu:#9aa5ba;--ac:#6ea0ff;--r:#ff7b7b;--g:#4ade80;--gr:#2f3748;--bd:#2a3140}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12151c;--card:#1b202b;--tx:#e8ecf5;--mu:#9aa5ba;--ac:#6ea0ff;--r:#ff7b7b;--g:#4ade80;--gr:#2f3748;--bd:#2a3140}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.8rem;margin:.6em 0 .2em}h2{font-size:1.25rem;margin:0 0 .4em;color:var(--ac)}
+section{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:16px 0}
+.mu{color:var(--mu)}code,.f{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:1px 6px;font-family:ui-monospace,monospace}
+.box{background:var(--bg);border-left:4px solid var(--ac);padding:8px 12px;border-radius:6px;margin:10px 0}
+ul{padding-left:20px}svg{width:100%;max-width:440px;display:block;margin:8px auto;touch-action:none;background:var(--card);border-radius:8px}
+.info{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;min-height:3.2em}
+.r{color:var(--r);font-weight:600}.g{color:var(--g);font-weight:600}.b{color:var(--ac);font-weight:600}
+</style></head><body><main>
+<h1>📐 Il piano cartesiano</h1>
+<p class="mu">Trascina i punti nei grafici: le coordinate cambiano in tempo reale.</p>
+
+<section><h2>1. Gli assi</h2>
+<p>Il piano cartesiano è formato da due rette perpendicolari:</p>
+<ul><li>l’asse <b>x</b> (orizzontale) si chiama <span class="b">ascissa</span>;</li>
+<li>l’asse <b>y</b> (verticale) si chiama <span class="r">ordinata</span>.</li></ul>
+<div class="box"><b>Per disegnarlo correttamente indica sempre:</b>
+<ul><li>i simboli degli assi (<b>x</b> e <b>y</b>);</li><li>il punto di origine <b>O</b>;</li><li>l’unità di misura scelta;</li><li>la freccia (cappuccio) all’estremità di ogni asse.</li></ul></div></section>
+
+<section><h2>2. Le coordinate dei punti</h2>
+<p>Un punto si scrive così: <span class="f">A(x ; y)</span></p>
+<p>cioè: la <b>lettera</b> del punto, la parentesi aperta, il valore sull’asse <b>x</b>, il punto e virgola, il valore sull’asse <b>y</b>, la parentesi chiusa.</p>
+<div class="box"><b>Punti particolari</b><ul>
+<li><span class="f">(0 ; 0)</span> → il punto è nell’<b>origine</b>;</li>
+<li><span class="f">(x ; 0)</span> → il punto è sull’<b>asse delle x</b>;</li>
+<li><span class="f">(0 ; y)</span> → il punto è sull’<b>asse delle y</b>.</li></ul></div>
+<p><b>Prova tu:</b> trascina il punto A e osserva le coordinate.</p>
+<div id="p1"></div><div class="info" id="i1"></div></section>
+
+<section><h2>3. Segmenti paralleli agli assi</h2>
+<div class="box">Se gli estremi hanno la <b>stessa ascissa</b> (stessa x) → il segmento è <b>parallelo all’asse y</b>.<br>
+Se hanno la <b>stessa ordinata</b> (stessa y) → il segmento è <b>parallelo all’asse x</b>.</div>
+<p><b>Prova tu:</b> sposta A e B e osserva quando il segmento diventa parallelo a un asse.</p>
+<div id="p2"></div><div class="info" id="i2"></div></section>
+
+<section><h2>4. Lunghezza di un segmento parallelo agli assi</h2>
+<div class="box">Parallelo all’asse y → <span class="f">AB = |y<sub>B</sub> − y<sub>A</sub>|</span> (differenza delle ordinate)<br>
+Parallelo all’asse x → <span class="f">AB = |x<sub>B</sub> − x<sub>A</sub>|</span> (differenza delle ascisse)</div>
+<p>Sottrai sempre il valore più piccolo dal più grande.</p>
+<div id="p3"></div><div class="info" id="i3"></div></section>
+
+<section><h2>5. Segmento obliquo: il teorema di Pitagora</h2>
+<p>Un segmento obliquo è l’<b>ipotenusa</b> di un triangolo rettangolo. I due <b>cateti</b> sono la componente orizzontale e quella verticale:</p>
+<div class="box"><span class="f">AB = √( (x<sub>B</sub> − x<sub>A</sub>)² + (y<sub>B</sub> − y<sub>A</sub>)² )</span></div>
+<p>Il punto C ha la x di B e la y di A: forma l’angolo retto.</p>
+<div id="p4"></div><div class="info" id="i4"></div></section>
+</main>
+<script>
+const U=30,OX=40,OY=400,N=12,X=v=>OX+v*U,Y=v=>OY-v*U,S='http://www.w3.org/2000/svg';
+const clamp=v=>Math.max(0,Math.min(N,Math.round(v)));
+function plane(id,mode,pts){
+ const el=document.getElementById(id),info=document.getElementById('i'+id.slice(1));
+ let drag=-1;
+ function draw(){
+  let s='<svg viewBox="0 0 440 440"><defs><marker id="a'+id+'" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0L8,4L0,8z" fill="currentColor"/></marker></defs><g style="color:var(--tx)">';
+  for(let i=0;i<=N;i++){s+=`<line x1="${X(i)}" y1="${Y(0)}" x2="${X(i)}" y2="${Y(N)}" stroke="var(--gr)"/><line x1="${X(0)}" y1="${Y(i)}" x2="${X(N)}" y2="${Y(i)}" stroke="var(--gr)"/>`;
+   if(i>0)s+=`<text x="${X(i)}" y="${Y(0)+16}" font-size="11" text-anchor="middle" fill="var(--mu)">${i}</text><text x="${X(0)-8}" y="${Y(i)+4}" font-size="11" text-anchor="end" fill="var(--mu)">${i}</text>`;}
+  s+=`<line x1="${X(0)}" y1="${Y(0)}" x2="${X(N)+28}" y2="${Y(0)}" stroke="currentColor" stroke-width="2" marker-end="url(#a${id})"/><line x1="${X(0)}" y1="${Y(0)}" x2="${X(0)}" y2="${Y(N)-28}" stroke="currentColor" stroke-width="2" marker-end="url(#a${id})"/>
+  <text x="${X(N)+22}" y="${Y(0)+20}" font-size="14" font-weight="700" fill="var(--ac)">x</text><text x="${X(0)-18}" y="${Y(N)-22}" font-size="14" font-weight="700" fill="var(--r)">y</text>
+  <text x="${X(0)-14}" y="${Y(0)+16}" font-size="13" font-weight="700">O</text><text x="${X(N)-4}" y="${Y(0)+32}" font-size="10" fill="var(--mu)">unità = 1</text></g>`;
+  const[A,B]=pts,L=(t,x,y,c)=>`<text x="${x}" y="${y}" font-size="12" font-weight="700" text-anchor="middle" fill="${c}">${t}</text>`;
+  let h='';
+  if(mode=='p'){
+   s+=`<line x1="${X(A[0])}" y1="${Y(A[1])}" x2="${X(A[0])}" y2="${Y(0)}" stroke="var(--ac)" stroke-dasharray="4"/><line x1="${X(A[0])}" y1="${Y(A[1])}" x2="${X(0)}" y2="${Y(A[1])}" stroke="var(--r)" stroke-dasharray="4"/>`;
+   h=`<b>A(${A[0]} ; ${A[1]})</b> → ascissa <span class="b">x = ${A[0]}</span>, ordinata <span class="r">y = ${A[1]}</span><br>`+(A[0]==0&&A[1]==0?'Il punto è nell’<b>origine</b> (0;0).':A[1]==0?'Il punto è sull’<b>asse delle x</b>: (x;0).':A[0]==0?'Il punto è sull’<b>asse delle y</b>: (0;y).':'Il punto non sta su nessun asse.');
+  }else{
+   const dx=Math.abs(B[0]-A[0]),dy=Math.abs(B[1]-A[1]),same=!dx&&!dy;
+   const col=mode=='obl'?'var(--tx)':!dx?'var(--r)':!dy?'var(--ac)':'var(--tx)';
+   s+=`<line x1="${X(A[0])}" y1="${Y(A[1])}" x2="${X(B[0])}" y2="${Y(B[1])}" stroke="${col}" stroke-width="4" stroke-linecap="round"/>`;
+   const P=`A(${A[0]};${A[1]}) e B(${B[0]};${B[1]})<br>`;
+   if(mode=='obl'){
+    const C=[B[0],A[1]];
+    s+=`<line x1="${X(A[0])}" y1="${Y(A[1])}" x2="${X(C[0])}" y2="${Y(C[1])}" stroke="var(--ac)" stroke-width="3" stroke-dasharray="6 3"/><line x1="${X(C[0])}" y1="${Y(C[1])}" x2="${X(B[0])}" y2="${Y(B[1])}" stroke="var(--r)" stroke-width="3" stroke-dasharray="6 3"/>`;
+    if(dx&&dy){const sx=B[0]>A[0]?-1:1,sy=B[1]>A[1]?1:-1;s+=`<path d="M${X(C[0])+sx*10},${Y(C[1])} l0,${-sy*10} l${-sx*10},0" fill="none" stroke="var(--tx)"/>`;
+     s+=L(dx,(X(A[0])+X(C[0]))/2,Y(A[1])+(B[1]>A[1]?16:-8),'var(--ac)')+L(dy,X(C[0])+(B[0]>A[0]?14:-14),(Y(A[1])+Y(B[1]))/2+4,'var(--r)');}
+    s+=L('C',X(C[0])+(B[0]>A[0]?-12:12),Y(C[1])+(B[1]>A[1]?16:-8),'var(--mu)');
+    const sq=dx*dx+dy*dy,d=Math.sqrt(sq),dd=Number.isInteger(d)?d:d.toFixed(2).replace('.',',');
+    h=P+(!dx||!dy?'Il segmento è parallelo a un asse: basta la differenza (nessun triangolo).':`Cateto orizzontale AC = <span class="b">${dx}</span>, cateto verticale CB = <span class="r">${dy}</span><br>AB = √(${dx}² + ${dy}²) = √(${dx*dx} + ${dy*dy}) = √${sq} ${Number.isInteger(d)?'= ':'≈ '}<b>${dd}</b>`);
+   }else if(mode=='par'){
+    h=P+(same?'I due punti coincidono.':!dx?'Stessa ascissa ('+A[0]+') → segmento <span class="r">parallelo all’asse y</span>.':!dy?'Stessa ordinata ('+A[1]+') → segmento <span class="b">parallelo all’asse x</span>.':'Ascisse e ordinate diverse → il segmento è <b>obliquo</b>.');
+   }else{
+    h=P+(same?'I due punti coincidono: lunghezza 0.':!dx?`Parallelo all’asse y → AB = |${B[1]} − ${A[1]}| = <b>${dy}</b>`:!dy?`Parallelo all’asse x → AB = |${B[0]} − ${A[0]}| = <b>${dx}</b>`:'Segmento obliquo: serve il teorema di Pitagora (sezione 5).');
+    if(!same&&(!dx||!dy)){const m=[(X(A[0])+X(B[0]))/2,(Y(A[1])+Y(B[1]))/2];s+=L(dx||dy,m[0]+(dx?0:14),m[1]+(dx?-10:4),'var(--g)');}
+   }
+  }
+  pts.forEach((p,i)=>{s+=`<circle data-i="${i}" cx="${X(p[0])}" cy="${Y(p[1])}" r="9" fill="var(--g)" stroke="var(--card)" stroke-width="2" style="cursor:grab"/>`+L('AB'[i],X(p[0])+14,Y(p[1])-12,'var(--tx)');});
+  el.innerHTML=s+'</svg>';info.innerHTML=h;
+ }
+ el.addEventListener('pointerdown',e=>{const t=e.target.closest('circle');if(t){drag=+t.dataset.i;el.firstChild.setPointerCapture(e.pointerId);e.preventDefault();}});
+ el.addEventListener('pointermove',e=>{if(drag<0)return;const svg=el.firstChild,pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const q=pt.matrixTransform(svg.getScreenCTM().inverse()),nx=clamp((q.x-OX)/U),ny=clamp((OY-q.y)/U);
+  if(nx!=pts[drag][0]||ny!=pts[drag][1]){pts[drag]=[nx,ny];draw();el.firstChild.setPointerCapture(e.pointerId);}});
+ el.addEventListener('pointerup',()=>drag=-1);el.addEventListener('pointercancel',()=>drag=-1);
+ draw();
+}
+plane('p1','p',[[3,4]]);
+plane('p2','par',[[2,3],[2,9]]);
+plane('p3','len',[[2,3],[9,3]]);
+plane('p4','obl',[[2,2],[8,10]]);
+</script></body></html>
